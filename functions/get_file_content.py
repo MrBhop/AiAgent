@@ -9,7 +9,7 @@ def get_file_content(working_directory, file_path):
         target_file = get_absolute_target_path(absolute_path_to_working_directory, file_path)
 
         if not target_is_in_working_directory(absolute_path_to_working_directory, target_file):
-            return f'Error: Cannot read "{file_path}" as it is outside the premitted working directory'
+            return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
 
         if not os.path.isfile(target_file):
             return f'Error: File not found or is not a regular file: "{file_path}"'
