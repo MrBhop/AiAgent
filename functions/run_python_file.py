@@ -21,6 +21,10 @@ def run_python_file(working_directory, file_path, args=None):
         if args:
             commands.extend(args)
 
+        print("\n", f"Attempting to run file: '{file_path}' with arguments: '{commands}'")
+        if input("Confirm run. Enter 'yes' to confirm:") != "yes":
+            raise Exception("User interrupted run")
+
         result = subprocess.run(
             args=commands,
             timeout=30,

@@ -14,6 +14,10 @@ def write_file(working_directory, file_path, content):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+        print("\n", f"Attempting to write to file '{file_path}':\n\n{content}\n")
+        if input("Confirm write. Enter 'yes' to confirm:") != "yes":
+            raise Exception("User interrupted write")
+
         with open(target_file, 'w') as f:
             f.write(content)
 

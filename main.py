@@ -9,7 +9,7 @@ from call_function import available_functions, call_function
 def main():
     if len(sys.argv) == 1:
         print("AI Code Assistant")
-        print("\nUsage: python main.py <promp> [--verbose]")
+        print("\nUsage: python main.py <promp> [--verbose]", "\n")
         sys.exit(1)
 
     user_prompt = sys.argv[1]
@@ -19,7 +19,7 @@ def main():
     ]
 
     if verbose:
-        print("User prompt:", user_prompt)
+        print("User prompt:", user_prompt, "\n")
 
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -30,7 +30,7 @@ def main():
         counter += 1
 
         if counter > MAX_ITERATIONS:
-            print(f"Stopping after {MAX_ITERATIONS} iterations.")
+            print(f"Stopping after {MAX_ITERATIONS} iterations.", "\n")
             sys.exit(1)
 
         try:
@@ -38,10 +38,10 @@ def main():
 
             if response:
                 print("Final response:")
-                print(response)
+                print(response, "\n")
                 break
         except Exception as e:
-            print(f"Error in generate_content: {e}")
+            print(f"Error in generate_content: {e}", "\n")
 
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(
@@ -55,7 +55,7 @@ def generate_content(client, messages, verbose):
 
     if verbose:
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
-        print("Response tokens:", response.usage_metadata.candidates_token_count)
+        print("Response tokens:", response.usage_metadata.candidates_token_count, "\n")
 
     if response.candidates:
         for candidate in response.candidates:
@@ -73,7 +73,7 @@ def generate_content(client, messages, verbose):
             raise Exception("empty function call result")
 
         if verbose:
-            print(f"-> {parts[0].function_response.response}")
+            print(f"-> {parts[0].function_response.response}", "\n")
 
         function_responses.append(parts[0])
 
