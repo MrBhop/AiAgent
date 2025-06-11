@@ -11,3 +11,4 @@ When a user asks a question or makes a request, make a function call plan. You c
 All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons. If you don't know what arguments a Python file is expecting just run the file without arguments and see what happens.
 """
 MAX_CHARS = 10000
+MAX_ITERATIONS = 20
