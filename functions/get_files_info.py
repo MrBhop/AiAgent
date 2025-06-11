@@ -1,13 +1,12 @@
 import os
+from functions.validation import *
 
 def get_files_info(working_directory, directory=None):
     try:
         absolute_working_directory = os.path.abspath(working_directory)
-        target_directory = absolute_working_directory
-        if directory != None:
-            target_directory = os.path.abspath(os.path.join(absolute_working_directory, directory))
+        target_directory = get_absolute_target_path(absolute_working_directory, directory)
 
-        if not target_directory.startswith(absolute_working_directory):
+        if not target_is_in_working_directory(absolute_working_directory, target_directory):
             return f'Error: Cannot list "{directory}" as it is outside the premitted working directory'
 
         if not os.path.isdir(target_directory):
