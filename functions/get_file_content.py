@@ -1,7 +1,7 @@
 import os
 from functions.validation import *
+from config import MAX_CHARS
 
-__MAX_CHARS = 10000
 
 def get_file_content(working_directory, file_path):
     try:
@@ -15,9 +15,9 @@ def get_file_content(working_directory, file_path):
             return f'Error: File not found or is not a regular file: "{file_path}"'
 
         with open(target_file, 'r') as f:
-            content = f.read(__MAX_CHARS + 1)
-            if len(content) > __MAX_CHARS:
-                content = f'{content[:__MAX_CHARS]}[...File truncated at {__MAX_CHARS} characters]'
+            content = f.read(MAX_CHARS + 1)
+            if len(content) > MAX_CHARS:
+                content = f'{content[:MAX_CHARS]}[...File truncated at {MAX_CHARS} characters]'
             return content
 
     except Exception as e:

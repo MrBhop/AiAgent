@@ -3,6 +3,7 @@ import sys
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from config import SYSTEM_PROMPT
 
 def main():
     if len(sys.argv) == 1:
@@ -33,7 +34,8 @@ def get_response(messages):
     client = genai.Client(api_key=api_key)
     return client.models.generate_content(
         model="gemini-2.0-flash-001",
-        contents=messages
+        contents=messages,
+        config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT),
     )
 
 if __name__ == "__main__":
