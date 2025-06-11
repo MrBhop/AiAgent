@@ -1,10 +1,16 @@
-from functions.write_file import write_file
+from functions.run_python_file import run_python_file
 
-print("Result for 'lorem.txt':")
-print(write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum"), "\n")
+print("Result from 'main.py':")
+print(run_python_file("calculator", "main.py"), "\n")
 
-print("Result for 'main.py':")
-print(write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet"), "\n")
+print("Result from 'tests.py':")
+print(run_python_file("calculator", "tests.py"), "\n")
 
-print("Result for '/tmp/temp.txt':")
-print(write_file("calculator", "/tmp/temp.txt", "this should not be allowed"), "\n")
+print("Result from '../main.py':")
+print(run_python_file("calculator", "../main.py"), "\n")
+
+print("Result from 'nonexistent.py':")
+print(run_python_file("calculator", "nonexistent.py"), "\n")
+
+print("Result from 'lorem.txt':")
+print(run_python_file("calculator", "lorem.txt"), "\n")
