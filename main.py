@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from config import SYSTEM_PROMPT
+from call_function import available_functions
 
 def main():
     if len(sys.argv) == 1:
@@ -25,8 +26,14 @@ def main():
     if output_verbose:
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
         print("Response tokens:", response.usage_metadata.candidates_token_count)
-    print("Response:")
-    print(response.text)
+
+    if not response.function_calls:
+        print("Response:")
+        print(response.text)
+        return
+
+    for call in response.function_calls:
+        print(f'Calling function: {call.name}({call.args})')
 
 def get_response(messages):
     load_dotenv()
@@ -35,7 +42,10 @@ def get_response(messages):
     return client.models.generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
-        config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT),
+        config=types.GenerateContentConfig(
+            tools=[available_functions],
+            system_instruction=SYSTEM_PROMPT,
+        ),
     )
 
 if __name__ == "__main__":
