@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from config import SYSTEM_PROMPT
-from call_function import available_functions
+from call_function import available_functions, call_function
 
 def main():
     if len(sys.argv) == 1:
@@ -33,7 +33,12 @@ def main():
         return
 
     for call in response.function_calls:
-        print(f'Calling function: {call.name}({call.args})')
+        result = call_function(call, output_verbose)
+
+        parts = result.parts
+        if len(parts) > 0:
+            response = parts[0].function_response.response
+            print(f"-> {response}")
 
 def get_response(messages):
     load_dotenv()
